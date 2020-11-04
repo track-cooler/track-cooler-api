@@ -105,3 +105,6 @@ dist
 
 # vs code
 .vscode
+
+# db
+track_cooler_db.sqlite
