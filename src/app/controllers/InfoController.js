@@ -1,11 +1,12 @@
 import Info from '../models/Info';
 
-function convertMillisToMinutes(millis) {
+function convertTime(millis) {
   const minutes = Math.floor(millis / 60000);
-  // const seconds = ((millis % 60000) / 1000).toFixed(0);
+  const seconds = ((millis % 60000) / 1000).toFixed(0);
+
   // console.log(minutes);
 
-  return minutes;
+  return { minutes, seconds: parseInt(seconds) };
 }
 
 class InfoController {
@@ -20,12 +21,12 @@ class InfoController {
     const lastDate = cooler.dataValues.updated_at;
     const milliseconds = new Date() - lastDate;
 
-    const minutes = convertMillisToMinutes(milliseconds);
+    const time = convertTime(milliseconds);
 
-    console.log('\n minutes', minutes);
+    console.log('\n time', time);
 
     // condition for update cooler's info
-    if (minutes >= 1) {
+    if (time.minutes >= 1) {
       cooler = cooler.dataValues;
 
       delete cooler.updated_at;
