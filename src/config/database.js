@@ -1,11 +1,14 @@
 module.exports = {
-  dialect: 'postgres',
-  host: 'localhost',
-  username: 'postgres',
-  password: 'docker',
-  database: 'convinfo',
+  dialect: 'sqlite',
+
+  // config for sqlite
+  operatorAliases: 'false',
+  storage: 'src/database/track_cooler_db.sqlite',
+  logging: false,
+
+  // extra db config
   define: {
-    timestamp: true,
+    timestamps: true,
     underscored: true,
     underscoredAll: true,
   },

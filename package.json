@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server.js",
+    "start": "yarn sequelize db:migrate && yarn sequelize db:seed:undo:all && yarn sequelize db:seed:all && nodemon src/server.js",
     "dev:debug": "nodemon --inspect src/server.js"
   },
   "repository": {
@@ -19,9 +19,8 @@
   "homepage": "https://github.com/mecassauro/covinfo-backend#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "pg": "^8.3.3",
-    "pg-hstore": "^2.3.3",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.0"
   },
   "devDependencies": {
     "eslint": "^7.10.0",
