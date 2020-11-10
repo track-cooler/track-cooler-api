@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable no-console */
 
 import Info from '../models/Info';
