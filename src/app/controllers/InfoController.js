@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import Info from '../models/Info';
 
 function convertTime(millis) {
@@ -11,39 +13,53 @@ function convertTime(millis) {
 
 class InfoController {
   async handleCoolerInfo(req, res) {
-    // get last info
-    let cooler = await Info.findOne({
-      attributes: ['cooler_name', 'battery_level', 'temperature', 'updated_at'],
-      order: [['id', 'DESC']],
-    });
+    try {
+      // get last info
+      let cooler = await Info.findOne({
+        attributes: [
+          'cooler_name',
+          'battery_level',
+          'temperature',
+          'updated_at',
+        ],
+        order: [['id', 'DESC']],
+      });
 
-    // check time since last update
-    const lastDate = cooler.dataValues.updated_at;
-    const milliseconds = new Date() - lastDate;
+      // check time since last update
+      const lastDate = cooler.dataValues.updated_at;
+      const milliseconds = new Date() - lastDate;
 
-    const time = convertTime(milliseconds);
+      const time = convertTime(milliseconds);
 
-    console.log('\n time', time);
+      console.log('\n tempo transcorrido desde a ultima atualização: ', time);
 
-    // condition for update cooler's info
-    if (time.minutes >= 1) {
-      cooler = cooler.dataValues;
+      // condition for update cooler's info
+      if (time.minutes >= 1) {
+        cooler = cooler.dataValues;
 
-      delete cooler.updated_at;
+        delete cooler.updated_at;
 
-      cooler = {
-        ...cooler,
-        battery_level: cooler.battery_level - 2,
-        temperature: cooler.temperature + 2,
-      };
+        cooler = {
+          ...cooler,
+          battery_level: cooler.battery_level - 2,
+          temperature: cooler.temperature + 2,
+        };
 
-      console.log('\n\n new data', cooler);
+        console.log('\n\n novos dados do cooler ', cooler);
 
-      // insert new data
-      Info.create(cooler);
+        // insert new data
+        Info.create(cooler);
+      }
+
+      return res.status(200).json(cooler);
+    } catch (err) {
+      console.log('Erro na solicitação de Informações do Cooler!');
+
+      return res.status(200).json({
+        success: false,
+        message: 'Erro na solicitação de Informações do Cooler!',
+      });
     }
-
-    return res.status(200).json(cooler);
   }
 }
 
