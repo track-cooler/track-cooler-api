@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 class GeolocController {
   async receiveGeoloc(req, res) {
+    console.log('aqui', req.body);
     const { lat, lng } = req.body;
 
     try {
       console.log(
-        `Coordenadas recebidas! \nLatitude: ${lat} \nLongitude: ${lng}`
+        `\n\n Coordenadas recebidas! \nLatitude: ${lat} \nLongitude: ${lng}`
       );
 
       res.status(200).json({
