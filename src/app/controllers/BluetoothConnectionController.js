@@ -7,9 +7,10 @@ class BluetoothConnectionController {
       if (pin !== 123456) {
         console.log('PIN invalido para conexão.');
 
-        res.status(400).json({
+        res.json({
           success: false,
-          message: `PIN invalido para conexão.`,
+          message:
+            'Conexão bluetooth invalida. Procure pelo bluetooth do seu cooler!',
         });
       } else {
         console.log(`Conexão Estabelecida! \nPin: ${pin} \nNome: ${name}`);
