@@ -108,3 +108,8 @@ dist
 
 # db
 track_cooler_db.sqlite
+
+# vd code
+.idea
+
+package-lock.json
